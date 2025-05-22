@@ -25,6 +25,8 @@ pip install -r requirements.txt
 
 ## Usage Example
 
+### Working with Material Streams
+
 ```python
 from unisim_connect.interface import UniSimInterface
 
@@ -47,6 +49,39 @@ stream.temperature = 298.15
 stream.pressure = 1.01325
 
 # Save the case
+unisim.save_case()
+```
+
+### Working with Spreadsheets
+
+```python
+from unisim_connect.interface import UniSimInterface
+
+# Create interface and connect
+unisim = UniSimInterface()
+unisim.open_case(use_active=True)
+
+# Get a spreadsheet by name
+spreadsheet = unisim.get_spreadsheet("SS1")
+
+# Read cell values
+value_a1 = spreadsheet.get_cell_value("A1")
+value_b2 = spreadsheet.get_cell_value("B2")
+print(f"Cell A1 value: {value_a1}")
+print(f"Cell B2 value: {value_b2}")
+
+# Write values to cells
+spreadsheet.set_cell_value("C1", 42.5)
+spreadsheet.set_cell_value("C2", "Sample Text")
+
+# Read cell formulas
+formula = spreadsheet.get_cell_formula("D1")
+print(f"Cell D1 formula: {formula}")
+
+# Set cell formula
+spreadsheet.set_cell_formula("D2", "=SUM(A1:C1)")
+
+# Save changes
 unisim.save_case()
 ```
 
